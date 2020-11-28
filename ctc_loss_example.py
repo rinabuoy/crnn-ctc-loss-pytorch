@@ -42,14 +42,15 @@ def ctcloss_reference(log_probs, targets, input_lengths, target_lengths, blank=0
     return output
 
 
+ctc_loss = torch.nn.CTCLoss()
 target_lengths = [30, 25, 20]
 input_lengths = [50, 50, 50]
 targets = torch.randint(1, 15, (sum(target_lengths),), dtype=torch.int)
 log_probs = torch.randn(50, 3, 15, dtype=torch.float, device=gpu).log_softmax(2)
-res = torch.nn.functional.ctc_loss(log_probs, targets, input_lengths, target_lengths)
+res = ctc_loss(log_probs, targets, input_lengths, target_lengths)
 expected = ctcloss_reference(log_probs, targets.cuda(), input_lengths, target_lengths).float()
 with torch.backends.cudnn.flags(enabled=False):
-    res2 = torch.nn.functional.ctc_loss(log_probs, targets.cuda().long(), input_lengths, target_lengths)
+    res2 = ctc_loss(log_probs, targets.cuda().long(), input_lengths, target_lengths)
 # tensor(4.0009, device='cuda:0') tensor(4.0009, device='cuda:0')
 # tensor(4.0009, device='cuda:0') tensor(4.0009, device='cuda:0')
 print(res, expected)

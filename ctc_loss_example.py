@@ -1,6 +1,5 @@
 # this directly follows Graves et al's paper, in contrast to the production implementation, it does not use log-space
 import torch
-import torch.nn.functional
 import torch.backends.cudnn
 gpu = torch.device('cuda')
 

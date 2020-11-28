@@ -1,6 +1,7 @@
 # this directly follows Graves et al's paper, in contrast to the production implementation, it does not use log-space
 import torch
 import torch.backends.cudnn
+
 gpu = torch.device('cuda')
 
 
@@ -50,7 +51,7 @@ res = ctc_loss(log_probs, targets, input_lengths, target_lengths)
 expected = ctcloss_reference(log_probs, targets.cuda(), input_lengths, target_lengths).float()
 with torch.backends.cudnn.flags(enabled=False):
     res2 = ctc_loss(log_probs, targets.cuda().long(), input_lengths, target_lengths)
-# tensor(4.0009, device='cuda:0') tensor(4.0009, device='cuda:0')
-# tensor(4.0009, device='cuda:0') tensor(4.0009, device='cuda:0')
-print(res, expected)
-print(res2, res)
+# tensor(True, device='cuda:0')
+# tensor(True, device='cuda:0')
+print(torch.all(res.eq(expected)))
+print(torch.all(res2.eq(res)))

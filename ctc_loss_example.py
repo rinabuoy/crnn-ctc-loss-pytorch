@@ -1,4 +1,3 @@
-# this directly follows Graves et al's paper, in contrast to the production implementation, it does not use log-space
 import torch
 import torch.backends.cudnn
 
@@ -10,6 +9,7 @@ gpu = torch.device('cuda')
 # =======================================================================================================================
 
 
+# this directly follows Graves et al's paper, in contrast to the production implementation, it does not use log-space
 def ctcloss_reference(log_probs, targets, input_lengths, target_lengths, blank=0, reduction='mean'):
     input_lengths = torch.as_tensor(input_lengths, dtype=torch.long)
     target_lengths = torch.as_tensor(target_lengths, dtype=torch.long)
@@ -45,7 +45,7 @@ def ctcloss_reference(log_probs, targets, input_lengths, target_lengths, blank=0
         for t in range(1, input_length):
             # тут мы сначала клонируем текущую альфу
             alpha_next = alpha.clone()
-            # потом сдвигаем альфу на один элемент вправо и складываем фактически At + (At-1)
+            # потом сдвигаем альфу на один элемент вправо и складываем фактически каждый At + (At-1)
             alpha_next[1:] += alpha[:-1]
             # и только для тех элементов, где маска проходит, мы прибавляем еще и At-2
             alpha_next[2:] += torch.where(mask_third, alpha[:-2], alpha.new_zeros(1))

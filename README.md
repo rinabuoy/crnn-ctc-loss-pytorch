@@ -1,1 +1,1 @@
-# ctc-loss-example
+# CTC loss example

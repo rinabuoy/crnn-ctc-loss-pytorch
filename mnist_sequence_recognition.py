@@ -50,7 +50,7 @@ dataset_labels = torch.IntTensor(np.array(dataset_labels))
 
 seq_dataset = data_utils.TensorDataset(dataset_data, dataset_labels)
 train_set, val_set = torch.utils.data.random_split(seq_dataset,
-                                                    [int(len(seq_dataset) * 0.8), int(len(seq_dataset) * 0.2)])
+                                                   [int(len(seq_dataset) * 0.8), int(len(seq_dataset) * 0.2)])
 
 train_loader = torch.utils.data.DataLoader(train_set, batch_size=64, shuffle=True)
 val_loader = torch.utils.data.DataLoader(val_set, batch_size=1, shuffle=True)

@@ -1,3 +1,4 @@
+import sys
 from itertools import groupby
 
 import matplotlib.pyplot as plt
@@ -7,7 +8,9 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.utils.data as data_utils
 import torchvision.transforms.functional as TF
+from colorama import Fore
 from torchvision import datasets, transforms
+from tqdm import tqdm
 
 gpu = torch.device('cuda')
 # ============================================= PREPARING DATASET ======================================================
@@ -103,6 +106,9 @@ for _ in range(epochs):
     # ============================================ TRAINING ============================================================
     train_correct = 0
     train_total = 0
+    training_pbar = tqdm(total=len(train_set),
+                         position=0, leave=True,
+                         file=sys.stdout, bar_format="{l_bar}%s{bar}%s{r_bar}" % (Fore.GREEN, Fore.RESET))
     for _, (x_train, y_train) in enumerate(train_loader):
         batch_size = x_train.shape[0]  # x_train.shape == torch.Size([64, 28, 140])
         x_train = x_train.view(x_train.shape[0], 1, x_train.shape[1], x_train.shape[2])
@@ -122,12 +128,17 @@ for _ in range(epochs):
             if len(prediction) == len(y_train[i]) and torch.all(prediction.eq(y_train[i])):
                 train_correct += 1
             train_total += 1
+        training_pbar.update(batch_size)
+    training_pbar.close()
     train_correct_ratio = train_correct / train_total
     print('TRAINING. Correct: ', train_correct, '/', train_total, '=', train_correct_ratio)
 
     # ============================================ VALIDATION ==========================================================
     val_correct = 0
     val_total = 0
+    validation_pbar = tqdm(total=len(val_set),
+                           position=0, leave=True,
+                           file=sys.stdout, bar_format="{l_bar}%s{bar}%s{r_bar}" % (Fore.BLUE, Fore.RESET))
     for _, (x_val, y_val) in enumerate(val_loader):
         batch_size = x_val.shape[0]
         x_val = x_val.view(x_val.shape[0], 1, x_val.shape[1], x_val.shape[2])
@@ -143,7 +154,9 @@ for _ in range(epochs):
             if len(prediction) == len(y_val[i]) and torch.all(prediction.eq(y_val[i])):
                 val_correct += 1
             val_total += 1
+        validation_pbar.update(batch_size)
     val_correct_ratio = val_correct / val_total
+    validation_pbar.close()
     print('TESTING. Correct: ', val_correct, '/', val_total, '=', val_correct_ratio)
 
 # ============================================ TESTING =================================================================

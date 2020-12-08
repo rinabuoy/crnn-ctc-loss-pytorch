@@ -65,13 +65,13 @@ class CnnGru(nn.Module):
     def __init__(self):
         super(CnnGru, self).__init__()
         self.conv1 = nn.Conv2d(1, 32, kernel_size=(3, 3))
-        self.batch_norm1 = nn.BatchNorm2d(32)
+        self.batch_norm1 = nn.InstanceNorm2d(32)
         self.conv3 = nn.Conv2d(32, 32, kernel_size=(3, 3), stride=2)
-        self.batch_norm3 = nn.BatchNorm2d(32)
+        self.batch_norm3 = nn.InstanceNorm2d(32)
         self.conv5 = nn.Conv2d(32, 64, kernel_size=(3, 3))
-        self.batch_norm5 = nn.BatchNorm2d(64)
+        self.batch_norm5 = nn.InstanceNorm2d(64)
         self.conv6 = nn.Conv2d(64, 64, kernel_size=(3, 3), stride=2)
-        self.batch_norm6 = nn.BatchNorm2d(64)
+        self.batch_norm6 = nn.InstanceNorm2d(64)
         self.gru_input_size = cnn_output_height * 64
         self.gru = nn.GRU(self.gru_input_size, gru_hidden_size, gru_num_layers, batch_first=True, bidirectional=True)
         self.fc = nn.Linear(gru_hidden_size * 2, num_classes)

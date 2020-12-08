@@ -122,7 +122,6 @@ for _ in range(epochs):
         optimizer.step()
         _, max_index = torch.max(y_pred, dim=2)  # max_index.shape == torch.Size([32, 64])
         for i in range(batch_size):
-            # example [8, 8, 6, 6, 0, 0, 0, 7, 9, 7, 7, 7, 7, 5, 5, 3, 3, 5, 1, 1, 7, 5, 5, 5, 6, 6, 4, 0, 0, 0, 0, 0]
             raw_prediction = list(max_index[:, i].detach().cpu().numpy())  # len(raw_prediction) == 32
             prediction = torch.IntTensor([c for c, _ in groupby(raw_prediction) if c != blank_label])
             if len(prediction) == len(y_train[i]) and torch.all(prediction.eq(y_train[i])):

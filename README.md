@@ -3,10 +3,10 @@
 ### [CTC loss reference implementation](https://github.com/dredwardhyde/crnn-ctc-loss-example-pytorch/blob/main/ctc_loss_example.py)  
 ### [MNIST sequence recognition](https://github.com/dredwardhyde/ctc-loss-example/blob/main/mnist_sequence_recognition.py)
 ### Training results  
-<img src="https://raw.githubusercontent.com/dredwardhyde/ctc-loss-example/main/training.png" width="900"/>  
+<img src="https://raw.githubusercontent.com/dredwardhyde/crnn-ctc-loss-pytorch/main/training.png" width="400"/>  
 
 ### Test results  
-<img src="https://raw.githubusercontent.com/dredwardhyde/ctc-loss-example/main/results.png" width="500"/>  
+<img src="https://raw.githubusercontent.com/dredwardhyde/crnn-ctc-loss-pytorch/main/results.png" width="900"/>  
 
 
 ### More materials:

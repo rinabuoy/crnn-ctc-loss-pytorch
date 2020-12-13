@@ -1,4 +1,7 @@
 # CTC loss examples
+![Python3.8.6](https://img.shields.io/badge/Python-3.8.6-blue.svg)
+![PyTorch1.7](https://img.shields.io/badge/PyTorch-1.7-yellow.svg)
+
 ### [CTC loss original paper by A.Graves et al.](https://github.com/dredwardhyde/crnn-ctc-loss-example-pytorch/blob/main/icml_2006.pdf)  
 ### [CTC loss reference implementation](https://github.com/dredwardhyde/crnn-ctc-loss-example-pytorch/blob/main/ctc_loss_example.py)  
 ### [MNIST sequence recognition](https://github.com/dredwardhyde/ctc-loss-example/blob/main/mnist_sequence_recognition.py)

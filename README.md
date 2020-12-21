@@ -11,9 +11,3 @@
 
 ### Test results  
 <img src="https://raw.githubusercontent.com/dredwardhyde/crnn-ctc-loss-pytorch/main/results.png" width="900"/>  
-
-
-### More materials:
-https://distill.pub/2017/ctc/  
-https://arxiv.org/abs/1702.05373  
-https://towardsdatascience.com/intuitively-understanding-connectionist-temporal-classification-3797e43a86c  

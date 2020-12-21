@@ -1,4 +1,4 @@
-# CTC loss examples
+# Multi-Digit Sequence Recognition With CRNN and CTC Loss Using PyTorch Framework
 [![medium](https://aleen42.github.io/badges/src/medium.svg)](https://medium.com/swlh/multi-digit-sequence-recognition-with-crnn-and-ctc-loss-using-pytorch-framework-269a7aca2a6)
 ![Python3.8.6](https://img.shields.io/badge/Python-3.8.6-blue.svg)
 ![PyTorch1.7](https://img.shields.io/badge/PyTorch-1.7-yellow.svg)

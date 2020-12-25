@@ -1,6 +1,7 @@
 import sys
 from itertools import groupby
 
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
@@ -172,7 +173,9 @@ for i in range(x_test.shape[0]):
     test_preds.append(prediction)
 
 for j in range(len(x_test)):
+    mpl.rcParams["font.size"] = 8
     plt.imshow(x_test[j], cmap='gray')
+    mpl.rcParams["font.size"] = 18
     plt.gcf().text(x=0.1, y=0.1, s="Actual: " + str(y_test[j].numpy()))
     plt.gcf().text(x=0.1, y=0.2, s="Predicted: " + str(test_preds[j].numpy()))
     plt.show()

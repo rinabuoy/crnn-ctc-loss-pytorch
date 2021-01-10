@@ -43,7 +43,7 @@ for i in range(number_of_sequences):
 
     random_digits_images = np.array(transformed_random_digits_images)
     random_digits_labels = emnist_dataset.targets[random_indices]
-    random_sequence = np.hstack(random_digits_images.reshape(digits_per_sequence, 28, 28))
+    random_sequence = np.hstack(random_digits_images.reshape((digits_per_sequence, 28, 28)))
     random_labels = np.hstack(random_digits_labels.reshape(digits_per_sequence, 1))
     dataset_sequences.append(random_sequence / 255)
     dataset_labels.append(random_labels)
@@ -106,10 +106,9 @@ for _ in range(epochs):
     # ============================================ TRAINING ============================================================
     train_correct = 0
     train_total = 0
-    training_pbar = tqdm(total=len(train_set),
-                         position=0, leave=True,
-                         file=sys.stdout, bar_format="{l_bar}%s{bar}%s{r_bar}" % (Fore.GREEN, Fore.RESET))
-    for _, (x_train, y_train) in enumerate(train_loader):
+    for x_train, y_train in tqdm(train_loader,
+                                 position=0, leave=True,
+                                 file=sys.stdout, bar_format="{l_bar}%s{bar}%s{r_bar}" % (Fore.GREEN, Fore.RESET)):
         batch_size = x_train.shape[0]  # x_train.shape == torch.Size([64, 28, 140])
         x_train = x_train.view(x_train.shape[0], 1, x_train.shape[1], x_train.shape[2])
         optimizer.zero_grad()
@@ -127,18 +126,14 @@ for _ in range(epochs):
             if len(prediction) == len(y_train[i]) and torch.all(prediction.eq(y_train[i])):
                 train_correct += 1
             train_total += 1
-        training_pbar.update(batch_size)
-    training_pbar.close()
-    train_correct_ratio = train_correct / train_total
-    print('TRAINING. Correct: ', train_correct, '/', train_total, '=', train_correct_ratio)
+    print('TRAINING. Correct: ', train_correct, '/', train_total, '=', train_correct / train_total)
 
     # ============================================ VALIDATION ==========================================================
     val_correct = 0
     val_total = 0
-    validation_pbar = tqdm(total=len(val_set),
-                           position=0, leave=True,
-                           file=sys.stdout, bar_format="{l_bar}%s{bar}%s{r_bar}" % (Fore.BLUE, Fore.RESET))
-    for _, (x_val, y_val) in enumerate(val_loader):
+    for x_val, y_val in tqdm(val_loader,
+                             position=0, leave=True,
+                             file=sys.stdout, bar_format="{l_bar}%s{bar}%s{r_bar}" % (Fore.BLUE, Fore.RESET)):
         batch_size = x_val.shape[0]
         x_val = x_val.view(x_val.shape[0], 1, x_val.shape[1], x_val.shape[2])
         y_pred = model(x_val.cuda())
@@ -153,10 +148,7 @@ for _ in range(epochs):
             if len(prediction) == len(y_val[i]) and torch.all(prediction.eq(y_val[i])):
                 val_correct += 1
             val_total += 1
-        validation_pbar.update(batch_size)
-    val_correct_ratio = val_correct / val_total
-    validation_pbar.close()
-    print('TESTING. Correct: ', val_correct, '/', val_total, '=', val_correct_ratio)
+    print('TESTING. Correct: ', val_correct, '/', val_total, '=', val_correct / val_total)
 
 # ============================================ TESTING =================================================================
 number_of_test_imgs = 10
